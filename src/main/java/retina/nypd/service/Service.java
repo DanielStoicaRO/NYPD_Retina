@@ -3,8 +3,8 @@ package retina.nypd.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import retina.nypd.dto.Dto;
 import retina.nypd.entities.ComplaintEntity;
-import retina.nypd.entities.Offenses;
-import retina.nypd.getCsvData.CsvTransformer;
+import retina.nypd.entities.OffensesCount;
+import retina.nypd.getCsvData.GetData;
 import retina.nypd.mappers.Mapper;
 import retina.nypd.repositories.Repository;
 
@@ -27,7 +27,7 @@ public class Service {
     }
 
     //	2-dataset/stats/offenses
-    public List<Offenses> getComplaintsByKY_CD() {
+    public List<OffensesCount> getComplaintsByKY_CD() {
         return repository.findComplaintsByKY_CD();
     }
 
@@ -36,7 +36,7 @@ public class Service {
         Optional<ComplaintEntity> complaint = repository.findById(id);
         if (complaint.isPresent()) {
             repository.delete(complaint.get());
-            CsvTransformer.exportCSV(repository);
+            GetData.exportCSV(repository);
             return true;
         } else {
             return false;

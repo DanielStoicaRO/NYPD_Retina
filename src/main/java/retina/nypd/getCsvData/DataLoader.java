@@ -18,6 +18,6 @@ public class DataLoader implements ApplicationRunner {
     }
 
     public void run(ApplicationArguments args) {
-        CsvTransformer.getSampleData(repository);
+        GetData.getSampleData(repository);
     }
 }

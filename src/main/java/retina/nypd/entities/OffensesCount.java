@@ -1,12 +1,12 @@
 package retina.nypd.entities;
 
 
-public class Offenses {
+public class OffensesCount {
 
     private final int KY_CD;
     private final Long count;
 
-    public Offenses(int KY_CD, Long count) {
+    public OffensesCount(int KY_CD, Long count) {
         this.KY_CD = KY_CD;
         this.count = count;
     }

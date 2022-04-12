@@ -20,13 +20,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class CsvTransformer {
+public class GetData {
 
-    private static final String URL = "https://data.cityofnewyork.us/resource/qgea-i56i.csv?$limit=10";
+    private static final String URL = "https://data.cityofnewyork.us/resource/qgea-i56i.csv?$limit=17";
     private static final String NYPD_CSV = "C:\\repository\\NypdDASProj\\src\\main\\resources\\nypd.csv";
 
     public static List<CsvComplaint> csvToComplaint() throws IOException {
-
         try (
                 Reader reader = Files.newBufferedReader(Paths.get(NYPD_CSV))
         ) {
@@ -35,17 +34,15 @@ public class CsvTransformer {
                     .withSkipLines(1)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
-
             return (List<CsvComplaint>) csvToBean.parse();
         }
     }
 
     public static void getSampleData(Repository repository) {
-
         try {
             File myFile = new File(NYPD_CSV);
             Request.Get(URL).execute().saveContent(myFile);
-            List<CsvComplaint> complaints = CsvTransformer.csvToComplaint();
+            List<CsvComplaint> complaints = GetData.csvToComplaint();
             for (CsvComplaint complaint : complaints) {
                 repository.save(Mapper.toComplaintFromCSV(complaint));
             }
@@ -55,7 +52,6 @@ public class CsvTransformer {
     }
 
     public static void exportCSV(Repository repository) {
-
         List<ComplaintEntity> allComplaintEntities = repository.findAll();
         try (
                 Writer writer = Files.newBufferedWriter(Paths.get(NYPD_CSV));

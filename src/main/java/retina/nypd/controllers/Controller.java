@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import retina.nypd.dto.Dto;
-import retina.nypd.entities.Offenses;
+import retina.nypd.entities.OffensesCount;
 import retina.nypd.service.Service;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class Controller {
     //	2-dataset/stats/offenses
     @GetMapping("/dataset/stats/offenses")
     public ResponseEntity<?> getOffensesStats() {
-        List<Offenses> stats = service.getComplaintsByKY_CD();
+        List<OffensesCount> stats = service.getComplaintsByKY_CD();
         return new ResponseEntity<>(stats, new HttpHeaders(), HttpStatus.OK);
     }
 
